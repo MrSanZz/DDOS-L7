@@ -6,10 +6,7 @@ elif os.name == "nt":
     os.system('cls')
 
 def logo():
-    print "\033[1;32m     ___  ___  ____  __  ____"
-    print "\033[1;91m    / _ \/ _ \/ __ \/ / / / /"
-    print "\033[1;34m   / // / // / /_/ / /_/_  _/"
-    print "\033[1;33m  /____/____/\____/____//_/  "
+    print "\033[1;32m bjorka   "
 logo()                           
 print("\n")
 print("\033[1;34m_"*33)
