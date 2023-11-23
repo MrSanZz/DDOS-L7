@@ -207,7 +207,6 @@ while True:
         else:
             os.system(prompt)   
     except SyntaxError:
-        print("Use python2!!")
         continue           
     except KeyboardInterrupt:
         continue
